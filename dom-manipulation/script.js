@@ -1,8 +1,8 @@
 let newQuote = document.getElementById("newQuote");
 let quoteDisplay = document.getElementById("quoteDisplay");
 
-let newQuoteText = document.getElementById("newQuoteText");
-let newQuoteCategory = document.getElementById("newQuoteCategory");
+//let newQuoteText = document.getElementById("newQuoteText");
+//let newQuoteCategory = document.getElementById("newQuoteCategory");
 
 let quotes = [
   { text: "first quote", category: "motivation" },
@@ -17,15 +17,37 @@ function showRandomQuote() {
   quoteDisplay.innerHTML = randomQuote.text + " " + randomQuote.category;
 }
 
-function addQuote() {
-  let newQuoteTextValue = newQuoteText.value.trim();
-  let newQuoteCategoryValue = newQuoteCategory.value.trim();
+function createAddQuoteForm() {
+  let quoteForm = document.createElement("div");
 
-  if (newQuoteTextValue && newQuoteCategoryValue) {
-    quotes.push({ text: newQuoteTextValue, category: newQuoteCategoryValue });
-  } else {
-    alert("Please fill in both fields (quote and category).");
-  }
+  let newQuoteText = document.createElement("input");
+  newQuoteText.id = "newQuoteText";
+  newQuoteText.type = "text";
+  newQuoteText.placeholder = "Enter the quote";
+
+  let newQuoteCategory = document.createElement("input");
+  newQuoteCategory.id = "newQuoteCategory";
+  newQuoteCategory.type = "Category";
+  newQuoteCategory.placeholder = "Enter the category";
+
+  let addButton = document.createElement("button");
+  addButton.textContent = "Add Quote";
+  addButton.addEventListener("click", function addQuote() {
+    let newQuoteTextValue = newQuoteText.value.trim();
+    let newQuoteCategoryValue = newQuoteCategory.value.trim();
+
+    if (newQuoteTextValue && newQuoteCategoryValue) {
+      quotes.push({ text: newQuoteTextValue, category: newQuoteCategoryValue });
+    } else {
+      alert("Please fill in both fields (quote and category).");
+    }
+  });
+
+  quoteForm.appendChild(newQuoteText);
+  quoteForm.appendChild(newQuoteCategory);
+  quoteForm.appendChild(addButton);
+
+  document.body.appendChild(quoteForm);
 }
 
 function showRandomQuote() {
@@ -33,4 +55,5 @@ function showRandomQuote() {
   quoteDisplay.innerHTML = randomQuote.text + " " + randomQuote.category;
 }
 
+document.addEventListener("DOMContentLoaded", createAddQuoteForm);
 newQuote.addEventListener("click", showRandomQuote);
